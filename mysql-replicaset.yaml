@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: mysql-replica
+  labels:
+    app.kubernetes.io/name: mysql
+    app.kubernetes.io/component: backend
+    app: mysql
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/component: backend
+      app: mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mysql
+        app.kubernetes.io/component: backend
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: 850113952307.dkr.ecr.us-east-1.amazonaws.com/mysql-repository:v0.1
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: db_pass123

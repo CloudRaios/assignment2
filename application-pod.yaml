@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-application
+  labels:
+    creation_method: manual
+    env: dev
+    app: employees
+spec:
+  containers:
+  - image: 850113952307.dkr.ecr.us-east-1.amazonaws.com/app-repository:v0.1
+    name: application
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    env:
+    - name: DBHOST
+      value: '10.244.0.6'
+    - name: DBPORT
+      value: '3306'
+    - name: DBUSER
+      value: 'root'
+    - name: DATABASE
+      value: 'employees'
+    - name: DBPWD
+      value: db_pass123
